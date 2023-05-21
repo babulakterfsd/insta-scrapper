@@ -7,9 +7,8 @@ const usernameFile = 'usernames.txt';
 const outputFile = 'output.json';
 let filesCreated = false;
 
-[usernameFile, outputFile].forEach(file => {
-    if (!fs.existsSync(file))
-        fs.writeFileSync(file, '');
+[usernameFile, outputFile].forEach((file) => {
+    if (!fs.existsSync(file)) fs.writeFileSync(file, '');
     filesCreated = true;
 });
 
@@ -44,14 +43,13 @@ function findLink(bioContent) {
     const link = match ? match[1] : '';
     if (link) {
         return link.replace(/\\\//g, '/');
-    } else {
-        return null;
     }
+    return null;
 }
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: 'new'
+        headless: 'new',
     });
 
     const readInterface = readline.createInterface({
@@ -75,65 +73,75 @@ function findLink(bioContent) {
 
             await insta.close();
 
-            const context = data["@context"];
-            const type = data["@type"];
-            const description = data["description"];
-            const authorType = data["author"]["@type"];
-            const authorIdentifierType = data["author"]["identifier"]["@type"];
-            const authorIdentifierPropertyID = data["author"]["identifier"]["propertyID"];
-            const authorIdentifierValue = data["author"]["identifier"]["value"];
-            const authorImage = data["author"]["image"];
-            const authorName = data["author"]["name"];
-            const authorAlternateName = data["author"]["alternateName"];
-            const authorSameAs = data["author"]["sameAs"];
-            const authorUrl = data["author"]["url"];
-            const mainEntityType = data["mainEntityOfPage"]["@type"];
-            const mainEntityId = data["mainEntityOfPage"]["@id"];
-            const identifierType = data["identifier"]["@type"];
-            const identifierPropertyID = data["identifier"]["propertyID"];
-            const identifierValue = data["identifier"]["value"];
-            const interactionStatisticType1 = data["interactionStatistic"][0]["@type"];
-            const interactionStatisticInteractionType1 = data["interactionStatistic"][0]["interactionType"];
-            const interactionStatisticUserInteractionCount1 = data["interactionStatistic"][0]["userInteractionCount"];
-            const interactionStatisticType2 = data["interactionStatistic"][1]["@type"];
-            const interactionStatisticInteractionType2 = data["interactionStatistic"][1]["interactionType"];
-            const interactionStatisticUserInteractionCount2 = data["interactionStatistic"][1]["userInteractionCount"];
+            const context = data['@context'];
+            const type = data['@type'];
+            const { description } = data;
+            const authorType = data.author['@type'];
+            const authorIdentifierType = data.author.identifier['@type'];
+            const authorIdentifierPropertyID = data.author.identifier.propertyID;
+            const authorIdentifierValue = data.author.identifier.value;
+            const authorImage = data.author.image;
+            const authorName = data.author.name;
+            const authorAlternateName = data.author.alternateName;
+            const authorSameAs = data.author.sameAs;
+            const authorUrl = data.author.url;
+            const mainEntityType = data.mainEntityOfPage['@type'];
+            const mainEntityId = data.mainEntityOfPage['@id'];
+            const identifierType = data.identifier['@type'];
+            const identifierPropertyID = data.identifier.propertyID;
+            const identifierValue = data.identifier.value;
+            const interactionStatisticType1 = data.interactionStatistic[0]['@type'];
+            const interactionStatisticInteractionType1 =
+                data.interactionStatistic[0].interactionType;
+            const interactionStatisticUserInteractionCount1 =
+                data.interactionStatistic[0].userInteractionCount;
+            const interactionStatisticType2 = data.interactionStatistic[1]['@type'];
+            const interactionStatisticInteractionType2 =
+                data.interactionStatistic[1].interactionType;
+            const interactionStatisticUserInteractionCount2 =
+                data.interactionStatistic[1].userInteractionCount;
 
             const link = findLink(bioContent);
             const email = findEmail(data);
 
             const result = {
-                context: context,
-                type: type,
-                description: description,
-                authorType: authorType,
-                authorIdentifierType: authorIdentifierType,
-                authorIdentifierPropertyID: authorIdentifierPropertyID,
-                authorIdentifierValue: authorIdentifierValue,
-                authorImage: authorImage,
-                authorName: authorName,
-                authorAlternateName: authorAlternateName,
-                authorSameAs: authorSameAs,
-                authorUrl: authorUrl,
-                mainEntityType: mainEntityType,
-                mainEntityId: mainEntityId,
-                identifierType: identifierType,
-                identifierPropertyID: identifierPropertyID,
-                identifierValue: identifierValue,
-                interactionStatisticType1: interactionStatisticType1,
-                interactionStatisticInteractionType1: interactionStatisticInteractionType1,
-                interactionStatisticUserInteractionCount1: interactionStatisticUserInteractionCount1,
-                interactionStatisticType2: interactionStatisticType2,
-                interactionStatisticInteractionType2: interactionStatisticInteractionType2,
-                interactionStatisticUserInteractionCount2: interactionStatisticUserInteractionCount2,
-                link: link,
-                email: email
+                context,
+                type,
+                description,
+                authorType,
+                authorIdentifierType,
+                authorIdentifierPropertyID,
+                authorIdentifierValue,
+                authorImage,
+                authorName,
+                authorAlternateName,
+                authorSameAs,
+                authorUrl,
+                mainEntityType,
+                mainEntityId,
+                identifierType,
+                identifierPropertyID,
+                identifierValue,
+                interactionStatisticType1,
+                interactionStatisticInteractionType1,
+                interactionStatisticUserInteractionCount1,
+                interactionStatisticType2,
+                interactionStatisticInteractionType2,
+                interactionStatisticUserInteractionCount2,
+                link,
+                email,
             };
 
-            if(result?.email || result?.authorUrl) {
-                console.log(`The URL https://instagram.com/${result.authorAlternateName} is valid and it has total ${result.interactionStatisticUserInteractionCount2} followers`.green.bold);
+            if (result?.email || result?.authorUrl) {
+                console.log(
+                    `The URL https://instagram.com/${result.authorAlternateName} is valid and it has total ${result.interactionStatisticUserInteractionCount2} followers`
+                        .green.bold
+                );
             } else {
-                console.log(`The URL https://instagram.com/${result.authorAlternateName} is not valid`.red.bold);
+                console.log(
+                    `The URL https://instagram.com/${result.authorAlternateName} is not valid`.red
+                        .bold
+                );
 
                 console.log('Fcking error.. grrr Babul'.red.bold);
             }
@@ -143,7 +151,7 @@ function findLink(bioContent) {
             fs.writeFileSync(outputFile, JSON.stringify(outputData, null, 2));
             const endTime = performance.now();
             // console.log('Part time', ((endTime - startTime) / 1000).toFixed(2) + 's');
-        };
+        }
     } catch (error) {
         console.error('Error:', error);
     } finally {
