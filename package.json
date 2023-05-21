@@ -1,0 +1,31 @@
+{
+  "name": "instagram-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb-base": "14.2.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "express": "^4.17.1",
+    "mongodb": "^5.4.0",
+    "mongoose": "^5.12.2",
+    "prettier": "^2.8.8",
+    "colors": "^1.4.0",
+    "puppeteer": "^20.2.1",
+    "scraper-instagram": "^1.0.17"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "",
+  "license": "ISC"
+}
