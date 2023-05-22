@@ -1,6 +1,6 @@
 /*
 
-just get the object from the of_data_raw collection where is_validated is False
+just get the object from the of_data_raws collection where is_validated is False
 then take the ig_url
 if profile doesn't exist 
 => set is_validated to True
@@ -10,6 +10,7 @@ if profile exists:
 => set is_valid to True
 => set the follower_count
 => update the validated_ig_url to the url you have
+=> update the ig_bio to the description you have
 
 */
 

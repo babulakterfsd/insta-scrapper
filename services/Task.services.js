@@ -3,15 +3,18 @@ const Task = require('../models/Task.model');
 
 module.exports.getAllTheUserNameService = async () => {
 
-    let userNames = []
+    let userInfos = []
 
    const users = await Task.find({is_validated: false}).limit(5)
 
    users.forEach(user => {
-         userNames.push(user?.ig_url.split('/')[3])
+         userInfos.push({
+            username: user?.ig_url.split('/')[3],
+            id: user?._id
+         })
    })
 
-   console.log(userNames);
+   console.log(userInfos);
 
    // insta kaj karbar starts here
 
@@ -50,10 +53,10 @@ module.exports.getAllTheUserNameService = async () => {
       });
   
       try {
-          for await (const username of userNames) {
+          for await (const userObj of userInfos) {
               try {
                   const insta = await browser.newPage();
-                  await insta.goto(`https://instagram.com/${username}`, { waitUntil: 'networkidle0' });
+                  await insta.goto(`https://instagram.com/${userObj?.username}`, { waitUntil: 'networkidle0' });
   
                   const bioContent = await insta.evaluate(() => {
                       const scriptTag = document.querySelector('script[type="application/ld+json"]');
@@ -122,17 +125,16 @@ module.exports.getAllTheUserNameService = async () => {
                       interactionStatisticUserInteractionCount2,
                       link,
                       email,
+                      mongo_id: userObj?.id,
                   };
   
                   if (result?.email || result?.authorUrl) {
                       console.log(result);
                   } else {
-                      console.log(
-                          `The URL https://instagram.com/${result.authorAlternateName} is not valid`.red.bold
-                      );
+                      console.log(`User ${userObj?.id}'s username is invalid.`);
                   }
               } catch (error) {
-                  console.error(`Error fetching Instagram data for username: ${username}`.red.bold);
+                  console.log(`User ${userObj?.id}'s username is invalid.`.red.bold);
               }
           }
       } catch (error) {
@@ -141,6 +143,7 @@ module.exports.getAllTheUserNameService = async () => {
           await browser.close();
       }
   })();
+  
   
 
 
