@@ -134,7 +134,13 @@ module.exports.getAllTheUserNameService = async () => {
                       console.log(`User ${userObj?.id}'s username is invalid.`);
                   }
               } catch (error) {
-                  console.log(`User ${userObj?.id}'s username is invalid.`.red.bold);
+                  const updateInvalidUser = await Task.findByIdAndUpdate(userObj?.id, {
+                          is_validated: true,
+                          is_valid: false,
+                    }, {
+                              new: true,
+                    });
+                    console.log(`User ${userObj?.id}'s username is invalid.`.red.bold);
               }
           }
       } catch (error) {
