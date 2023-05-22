@@ -22,7 +22,6 @@ module.exports.getAllTheUserNames =  async ( req, res, next ) => {
     if(userNames?.length > 0) {
         res.status(200).json({
             success: true,
-            data: userNames,
             message: 'Usernames fetched successfully',
         })
     } else {

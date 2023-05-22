@@ -15,7 +15,7 @@ const taskSchema = mongoose.Schema(
                 default: false
             },
             validated_ig_url: String,
-            follower_count: Number,
+            follower_count: String,
             name: String,
             bio: String,
             ig_bio: String,

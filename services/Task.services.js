@@ -129,6 +129,16 @@ module.exports.getAllTheUserNameService = async () => {
                   };
   
                   if (result?.email || result?.authorUrl) {
+
+                          const updateValidUser = await Task.findByIdAndUpdate(userObj?.id, {
+                              is_validated: true,
+                              is_valid: true,
+                              follower_count: result?.interactionStatisticUserInteractionCount2,
+                              validated_ig_url: result?.authorUrl,
+                              ig_bio: result?.description
+                          }, {
+                              new: true,
+                              });
                       console.log(result);
                   } else {
                       console.log(`User ${userObj?.id}'s username is invalid.`);
@@ -153,5 +163,5 @@ module.exports.getAllTheUserNameService = async () => {
   
 
 
-   return users
+   return 'done'
 }
