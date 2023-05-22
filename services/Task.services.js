@@ -5,7 +5,7 @@ module.exports.getAllTheUserNameService = async () => {
 
     let userInfos = []
 
-   const users = await Task.find({is_validated: false})
+   const users = await Task.find({is_validated: false}).limit(200)
 
    users.forEach(user => {
          userInfos.push({
