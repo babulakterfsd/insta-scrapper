@@ -5,7 +5,7 @@ module.exports.getAllTheUserNameService = async () => {
 
     let userInfos = []
 
-   const users = await Task.find({is_validated: false}).limit(500)
+   const users = await Task.find({is_validated: false}).limit(5)
 
    users.forEach(user => {
          userInfos.push({
@@ -135,10 +135,8 @@ module.exports.getAllTheUserNameService = async () => {
                           }, {
                               new: true,
                               });
-                      console.log(result);
-                  } else {
-                      console.log(`User ${userObj?.id}'s username is invalid.`);
-                  }
+                      console.log(`User ${userObj?.id}'s username is valid and updated as is_valid: true`.green.bold);
+                  } 
               } catch (error) {
                   const updateInvalidUser = await Task.findByIdAndUpdate(userObj?.id, {
                           is_validated: true,
@@ -146,7 +144,7 @@ module.exports.getAllTheUserNameService = async () => {
                     }, {
                               new: true,
                     });
-                    console.log(`User ${userObj?.id}'s username is invalid.`.red.bold);
+                    console.log(`User ${userObj?.id}'s username is invalid and updated as is_valid: false`.red.bold);
               }
           }
       } catch (error) {

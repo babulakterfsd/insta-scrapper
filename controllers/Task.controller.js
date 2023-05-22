@@ -17,9 +17,9 @@ if profile exists:
 const { getAllTheUserNameService } = require("../services/Task.services")
 
 module.exports.getAllTheUserNames =  async ( req, res, next ) => {
-    const userNames = await getAllTheUserNameService()
+    const result = await getAllTheUserNameService()
 
-    if(userNames?.length > 0) {
+    if(result?.length > 0) {
         res.status(200).json({
             success: true,
             message: 'Usernames fetched successfully',
