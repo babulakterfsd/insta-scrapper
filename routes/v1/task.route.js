@@ -5,6 +5,6 @@ const TaskController = require('../../controllers/Task.controller');
 const router = express.Router();
 
 
-router.route('/').get(TaskController.getAllTheUserNames)
+router.route('/updateigdatam').get(TaskController.getAllTheUserNames)
 
 module.exports = router;

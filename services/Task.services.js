@@ -5,7 +5,7 @@ module.exports.getAllTheUserNameService = async () => {
 
     let userInfos = []
 
-   const users = await Task.find({is_validated: false}).limit(5)
+   const users = await Task.find({is_validated: false})
 
    users.forEach(user => {
          userInfos.push({
@@ -13,10 +13,6 @@ module.exports.getAllTheUserNameService = async () => {
             id: user?._id
          })
    })
-
-   console.log(userInfos);
-
-   // insta kaj karbar starts here
 
    const emailRegex = /[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
    const linkRegex = /"sameAs":"(.*?)"/;
