@@ -133,17 +133,14 @@ function findLink(bioContent) {
             };
 
             if (result?.email || result?.authorUrl) {
-                console.log(
-                    `The URL https://instagram.com/${result.authorAlternateName} is valid and it has total ${result.interactionStatisticUserInteractionCount2} followers`
-                        .green.bold
-                );
+                console.log(result);
             } else {
                 console.log(
                     `The URL https://instagram.com/${result.authorAlternateName} is not valid`.red
                         .bold
                 );
 
-                console.log('Fcking error.. grrr Babul'.red.bold);
+                
             }
 
             outputData.push(result);
