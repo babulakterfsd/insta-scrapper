@@ -5,7 +5,7 @@ module.exports.getAllTheUserNameService = async () => {
 
     let userInfos = []
 
-   const users = await Task.find({is_validated: false}).limit(5)
+   const users = await Task.find({is_validated: false}).limit(20)
 
    users.forEach(user => {
          userInfos.push({
@@ -150,6 +150,7 @@ module.exports.getAllTheUserNameService = async () => {
       } catch (error) {
           console.error('Error:', error);
       } finally {
+        console.log('----------------------end of the process-------------------');
           await browser.close();
       }
   })();
