@@ -150,7 +150,8 @@ module.exports.getAllTheUserNameService = async () => {
       } catch (error) {
           console.error('Error:', error);
       } finally {
-        console.log('----------------------end of the process-------------------');
+        const totalUpdated = await Task.find({is_validated: true}).countDocuments()
+        console.log(`------ end of the process, total validated: ${totalUpdated}  --------`.rainbow.bold);
           await browser.close();
       }
   })();
