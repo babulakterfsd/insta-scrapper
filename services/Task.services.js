@@ -153,7 +153,7 @@ module.exports.getAllTheUserNameService = async () => {
         const totalUpdated = await Task.find({is_validated: true}).countDocuments()
         const totalValid = await Task.find({is_valid: true}).countDocuments()
 
-        console.log(`------ end of the process, total validated: ${totalUpdated} and ${totalValid} data remains valid in the database  --------`.rainbow.bold);
+        console.log(`----- end of the process, total validated: ${totalUpdated} and ${totalValid} data remains valid in the database  ------`.rainbow.bold);
           await browser.close();
       }
   })();
