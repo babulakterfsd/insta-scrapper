@@ -16,13 +16,14 @@ app.use(express.json());
 
 
 
-app.use('/api/v1/task', TaskRoute);
-
-app.use('/', (req, res) => {
+app.use('/welcome', (req, res) => {
     res.status(200).json({
         message: 'Welcome to the scrap insta api',
     });
 })
+
+app.use('/api/v1/task', TaskRoute);
+
 
 app.all('*', (req, res, next) => {
     res.status(404).json({ error: 'API endpoint not found' });
