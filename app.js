@@ -5,6 +5,7 @@ const colors = require('colors');
 const mongoose = require('mongoose');
 const errorHandler = require('./middlewares/errorHandler');
 const TaskRoute = require('./routes/v1/task.route');
+const BioemailRoute = require('./routes/v1/bioemail.route');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/welcome', (req, res) => {
 })
 
 app.use('/api/v1/task', TaskRoute);
+app.use('/api/v1/bioemail', BioemailRoute);
 
 
 app.all('*', (req, res, next) => {
